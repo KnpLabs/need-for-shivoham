@@ -3,16 +3,15 @@ import {div} from '@cycle/dom'
 function moveObstacle(game$) {
     return game$
         .map(([_, action]) => action)
-        .filter(action => typeof action === 'number')
-        .fold((acc, movement) => acc + movement, 5)
+        .filter(Number.isInteger)
+        .map(movement => 5 + movement)
         .map(movement => Math.max(0, movement))
-        .map(movement => Math.min(11, movement))
+        .map(movement = Math.min(11, momvement))
         .map(position => div(`#player.position-${position}`))
     ;
 }
 
 function stickObstacle(game$) {
-
 }
 
 export function draw(game) {
