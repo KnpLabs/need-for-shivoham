@@ -1,20 +1,19 @@
 import {div} from '@cycle/dom'
 
-function moveObstacle(game$) {
+export function draw(game$) {
     return game$
-        .map(([_, action]) => action)
-        .filter(action => typeof action === 'number')
-        .fold((acc, movement) => acc + movement, 5)
-        .map(movement => Math.max(0, movement))
-        .map(movement => Math.min(11, movement))
-        .map(position => div(`#player.position-${position}`))
-    ;
-}
+        .fold((acc, [_, action, stickObstacle]) => {
+            const position = Math.max(Math.min(11, acc.position + action), 0)
 
-function stickObstacle(game$) {
+            acc.obstacles.push(stickObstacle ? {x: position} : null)
 
-}
-
-export function draw(game) {
-    return moveObstacle(game);
+            return {
+                position: position,
+                obstacles: acc.obstacles.filter(v => v !== null)
+            }
+        }, { position: 5, obstacles: []})
+        .map(state => div([
+             div(`#player.position-${state.position}`),
+            ...state.obstacles.map(obstacle => div(`.obstacle.position-${obstacle.x}`))
+        ]))
 }
