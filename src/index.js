@@ -1,11 +1,11 @@
 import {run} from '@cycle/run'
+import {timeDriver} from '@cycle/time';
 import {makeDOMDriver} from '@cycle/dom'
+import {makeCanvasDriver} from 'cycle-canvas';
 import {App} from './app'
 
-const main = App
-
-const drivers = {
-  DOM: makeDOMDriver('#app')
-}
-
-run(main, drivers)
+run(App, {
+    Time: timeDriver,
+    Canvas: makeCanvasDriver('#game'),
+    DOM: makeDOMDriver('#app')
+})
