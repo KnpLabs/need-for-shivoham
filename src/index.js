@@ -7,5 +7,5 @@ import {App} from './app'
 run(App, {
     Time: timeDriver,
     Canvas: makeCanvasDriver('#game'),
-    DOM: makeDOMDriver('#app')
+    DOM: makeDOMDriver('#app'),
 })

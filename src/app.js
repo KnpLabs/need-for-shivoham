@@ -2,7 +2,7 @@ import {rect, text, polygon} from 'cycle-canvas';
 import {div} from '@cycle/dom'
 import xs from 'xstream'
 
-export function App ({DOM, Time}) {
+export function App ({DOM, Time, Canvas}) {
     const frames$ = Time.animationFrames();
 
     return {
