@@ -16,5 +16,6 @@ export function getAction(DOM) {
     return xs.merge(keyLeft$, keyRight$)
         .map(direction => xs.fromArray([direction, 0]))
         .flatten()
+        .startWith(0)
     ;
 }
