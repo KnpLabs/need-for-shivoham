@@ -2,9 +2,9 @@ import {div} from '@cycle/dom'
 
 export function draw(game) {
     return game
-        .fold((acc, [frame, action]) => {
+        .fold((acc, [_, action]) => {
             const newAcc = acc + action;
-            if (newAcc >= 0 && newAcc <= 11) {
+            if (newAcc > 0 && newAcc <= 11) {
                 return newAcc;
             }
 
