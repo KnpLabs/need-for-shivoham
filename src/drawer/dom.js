@@ -6,8 +6,10 @@ export function draw(game$) {
     return game$
         .compose(foldState)
         .map((state) => div([
-            div('#player.position-' + state.playerPosition),
-            div('#enemy.position-' + state.enemyPosition),
-            ...state.obstacles.map(obstacle => div(`.obstacle.position-${obstacle.x}`))
+            div('#player', { style: { left: `${state.playerPosition}px` } }),
+            div('#enemy', { style: { left: `${state.enemyPosition}px`} }),
+            ...state.obstacles.map(obstacle => div('.obstacle', {
+                style: { left: `${obstacle.x}px` }
+            }))
         ]))
 }

@@ -19,3 +19,13 @@ export function getAction(DOM) {
         .startWith(0)
     ;
 }
+
+export function enemy() {
+    return xs.periodic(500)
+        .map(() => {
+            return Math.floor(Math.random() * 3) - 1;
+        })
+        .map(position => xs.fromArray([position, 0]))
+        .flatten()
+    ;
+}
