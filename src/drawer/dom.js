@@ -6,8 +6,8 @@ export function draw(game$) {
     return game$
         .compose(foldState)
         .map((state) => div([
-            div('#player.position-' + state.position),
-            div('#enemy.position-' + state.enemy),
+            div('#player.position-' + state.playerPosition),
+            div('#enemy.position-' + state.enemyPosition),
             ...state.obstacles.map(obstacle => div(`.obstacle.position-${obstacle.x}`))
         ]))
 }
