@@ -15,7 +15,25 @@
                 border: 0;
                 padding: 0;
                 overflow: hidden;
+                color: white;
             }
+            body {
+                background-color: black;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .red {
+                color: red;
+            }
+            .blue {
+                color: blue;
+            }
+            h1 {
+                font-size: 90px;
+            }
+
             .obstacle {
                 background: url('block.png');
                 width: 34px;
@@ -85,6 +103,7 @@
         </style>
     </head>
     <body>
+        <h1><span class="red">Need</span> For <span class="blue">Shivoham</span></h1>
         <div id="app"></div>
         <script src="bundle.js"></script>
     </body>
