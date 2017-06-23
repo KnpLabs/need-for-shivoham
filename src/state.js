@@ -3,6 +3,7 @@ import { playerPosition } from './state/player-position';
 import { enemyPosition } from './state/enemy-position';
 import { obstacles } from './state/obstacles';
 import { win } from './state/win';
+import { score } from './state/score';
 
 const initialState = {
     playerPosition: 264,
@@ -25,6 +26,7 @@ export function foldState(game$) {
                 enemyPosition: enemyPosition(acc.obstacles, acc.enemyPosition),
                 obstacles: obstacles(moveObstacle, nextObstacleId, stickObstacle, acc.playerPosition, acc.obstacles),
                 win: acc.win || win(acc.enemyPosition, acc.obstacles),
+                score: acc.win ? acc.score : score(acc.score),
                 isSoundPlaying: acc.obstacles.length > 0,
             });
 
