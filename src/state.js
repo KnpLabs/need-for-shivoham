@@ -1,5 +1,5 @@
 function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
-    const playerPosition = Math.max(Math.min(550, acc.playerPosition + action * 50), 0);
+    const playerPosition = Math.max(Math.min(504, acc.playerPosition + action * 40), 64);
 
     acc.obstacles = acc.obstacles.map((obstacle) => {
         return Object.assign({}, obstacle, {
@@ -13,7 +13,7 @@ function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
 
     const carDirection = acc
         .obstacles
-        .filter(obstacle => obstacle.y >= 500 && (obstacle.x >= acc.enemyPosition - 50 || obstacle.x <= acc.enemyPosition + 50))
+        .filter(obstacle => obstacle.y >= 500 && (obstacle.x >= acc.enemyPosition - 40 || obstacle.x <= acc.enemyPosition + 40))
         .reduce((pos, x, y, obstacles) => {
             let frontObstacle = obstacles.filter(obstacle => obstacle.y === 500 && obstacle.x === acc.enemyPosition).pop();
 
@@ -21,7 +21,7 @@ function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
                     return 0;
             }
 
-            let newPosition = Math.max(Math.min(550, acc.enemyPosition + 1 * 50), 0);
+            let newPosition = Math.max(Math.min(504, acc.enemyPosition + 1 * 40), 64);
             let colisions = acc.obstacles.filter((obstacle) => {
                 return 550 === obstacle.y && obstacle.x === newPosition;
             });
@@ -30,7 +30,7 @@ function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
         }, 0)
     ;
 
-    const enemyPosition = Math.max(Math.min(550, acc.enemyPosition + carDirection * 50), 0);
+    const enemyPosition = Math.max(Math.min(504, acc.enemyPosition + carDirection * 40), 64);
 
     const colisions = acc.obstacles.filter((obstacle) => {
         return 550 === obstacle.y && obstacle.x === enemyPosition;
@@ -46,8 +46,8 @@ function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
 }
 
 const initialState = {
-    playerPosition: 250,
-    enemyPosition: 250,
+    playerPosition: 264,
+    enemyPosition: 264,
     obstacles: [],
     win: false,
     score: 0,
