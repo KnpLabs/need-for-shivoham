@@ -42,6 +42,5 @@ export function foldState(game$) {
                 obstacles: obstacles(moveObstacle, nextObstacleId, stickObstacle, acc.playerPosition, acc.obstacles),
                 win: win(acc.enemyPosition, acc.obstacles)
             });
-        }, initialState)
-        .debug();
+        }, initialState);
 }

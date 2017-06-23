@@ -7,7 +7,7 @@ export function obstacles(moveObstacle, nextObstacleId, stickObstacle, currentPl
         obstacles.push({ x: currentPlayerPosition, y: 50, id: nextObstacleId })
     }
 
-    return obstacles;
+    return obstacles.filter(o => o.y <= 600);
 }
 
 export function obstacles2(game$) {
@@ -20,6 +20,6 @@ export function obstacles2(game$) {
             obstacles.push({ x: playerPosition, y: 50, id: nextObstacleId })
         }
 
-        return obstacles;
+        return obstacles.filter(o => o.y <= 100);
     }, []);
 }
