@@ -1,6 +1,5 @@
 function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
     const playerPosition = Math.max(Math.min(504, acc.playerPosition + action * 40), 64);
-    const enemyPosition = Math.max(Math.min(550, acc.enemyPosition + enemy * 50), 0);
 
     acc.obstacles = acc.obstacles.map((obstacle) => {
         return Object.assign({}, obstacle, {
@@ -23,17 +22,17 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
             }
 
             let newPosition = Math.max(Math.min(504, acc.enemyPosition + 1 * 40), 64);
-            let colisions = acc.obstacles.filter((obstacle) => {
+            let collisions = acc.obstacles.filter((obstacle) => {
                 return 550 === obstacle.y && obstacle.x === newPosition;
             });
 
-            return colisions.length ? -1 : 1;
+            return collisions.length ? -1 : 1;
         }, 0)
     ;
 
     const enemyPosition = Math.max(Math.min(504, acc.enemyPosition + carDirection * 40), 64);
 
-    const colisions = acc.obstacles.filter((obstacle) => {
+    const collisions = acc.obstacles.filter((obstacle) => {
         return 550 === obstacle.y && obstacle.x === enemyPosition;
     });
 
@@ -41,7 +40,7 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
         playerPosition,
         enemyPosition,
         obstacles: acc.obstacles,
-        win: acc.win || colisions.length > 0,
+        win: acc.win || collisions.length > 0,
         score: acc.win ? acc.score : acc.score + moveObstacle,
     };
 }

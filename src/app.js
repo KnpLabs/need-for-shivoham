@@ -4,6 +4,8 @@ import debounce from 'xstream/extra/debounce'
 import { draw as drawCanvas } from './drawer/canvas';
 import { draw as drawDom } from './drawer/dom';
 import { getAction, stickObstacle } from './player/action';
+import {foldState} from './state'
+import {doppler} from './sound/doppler'
 
 export function App({DOM, Time, Canvas}) {
     const action$ = getAction(DOM);
@@ -18,7 +20,12 @@ export function App({DOM, Time, Canvas}) {
         .flatten()
     ;
 
+
+    const state$ = xs.combine(action$, stickObstacle$, moveObstacle$, enemy$)
+        .compose(foldState)
+
     return {
-        DOM: drawDom(xs.combine(action$, stickObstacle$, moveObstacle$, enemy$)),
+        DOM: drawDom(state$),
+        Sound: doppler(state$),
     }
 }

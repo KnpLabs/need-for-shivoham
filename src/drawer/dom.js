@@ -1,10 +1,8 @@
 import {div} from '@cycle/dom'
 
-import {foldState} from '../state'
 
-export function draw(game$) {
-    return game$
-        .compose(foldState)
+export function draw(state$) {
+    return state$
         .map((state) => {
             if (state.win) {
                 return div('.win', 'BIEN OUEJ!!');
