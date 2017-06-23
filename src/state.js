@@ -21,6 +21,7 @@ function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
         enemyPosition,
         obstacles: acc.obstacles,
         win: acc.win || colisions.length > 0,
+        score: acc.win ? acc.score : acc.score + moveObstacle,
     };
 }
 
@@ -29,6 +30,7 @@ const initialState = {
     enemyPosition: 250,
     obstacles: [],
     win: false,
+    score: 0,
 };
 
 export function foldState(game$) {

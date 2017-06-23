@@ -7,10 +7,14 @@ export function draw(game$) {
         .compose(foldState)
         .map((state) => {
             if (state.win) {
-                return div('.win', 'BIEN OUEJ!!');
+                return div([
+                    div('.win', 'BIEN OUEJ!!'),
+                    div('.score', `Score : ${state.score}`),
+                ]);
             }
 
             return div([
+                div('#score', `Score : ${state.score}`),
                 div('#player', { style: { left: `${state.playerPosition}px` } }),
                 div('#enemy', { style: { left: `${state.enemyPosition}px`} }),
                 ...state.obstacles.map(obstacle => div('.obstacle', {
