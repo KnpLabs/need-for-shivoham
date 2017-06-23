@@ -9,7 +9,7 @@ export function resetState(DOM) {
 }
 
 export function stickObstacle(DOM) {
-    const keyDown$ = DOM.select('document').events('keydown')
+    const keyDown$ = DOM.select('document').events('keyup')
 
     return keyDown$.filter(ev => ev.keyCode === 32).mapTo(true).startWith(false)
         .map(direction => xs.fromArray([direction, false]))

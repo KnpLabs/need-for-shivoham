@@ -12,7 +12,7 @@ export function App({DOM, Time}) {
     const resetState$ = resetState(DOM);
     const moveObstacle$ = Time.periodic(100).map(() => xs.fromArray([40, 0])).flatten();
 
-    const nextObstacleId$ = stickObstacle$.fold((acc, curr) => acc + (curr ? 1 : 0), 1)
+    const nextObstacleId$ = stickObstacle(DOM).fold((acc, curr) => acc + (curr ? 1 : 0), 1)
 
     const state$ = xs.combine(action$, stickObstacle$, moveObstacle$, resetState$, nextObstacleId$)
         .compose(foldState)
