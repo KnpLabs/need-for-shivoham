@@ -6,7 +6,6 @@ import { draw as drawDom } from './drawer/dom';
 import { getAction, stickObstacle } from './player/action';
 
 export function App({DOM, Time, Canvas}) {
-    const frame$ = Time.animationFrames();
     const action$ = getAction(DOM);
     const stickObstacle$ = stickObstacle(DOM);
     const moveObstacle$ = Time.periodic(100).map(() => xs.fromArray([50, 0])).flatten();
@@ -20,6 +19,6 @@ export function App({DOM, Time, Canvas}) {
     ;
 
     return {
-        DOM: drawDom(xs.combine(xs.of(null), action$, stickObstacle$, moveObstacle$, enemy$)),
+        DOM: drawDom(xs.combine(action$, stickObstacle$, moveObstacle$, enemy$)),
     }
 }

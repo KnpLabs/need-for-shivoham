@@ -2,10 +2,12 @@ import {run} from '@cycle/run'
 import {timeDriver} from '@cycle/time';
 import {makeDOMDriver} from '@cycle/dom'
 import {makeCanvasDriver} from 'cycle-canvas';
+import {soundDriver} from './driver/sound';
 import {App} from './app'
 
 run(App, {
     Time: timeDriver,
     Canvas: makeCanvasDriver('#game'),
     DOM: makeDOMDriver('#app'),
+    Sound: soundDriver,
 })
