@@ -1,5 +1,9 @@
 function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
-    const playerPosition = Math.max(Math.min(504, acc.playerPosition + action * 40), 64);
+    const minX = 64;
+    const maxX = 504;
+    const maxY = 550;
+    const trackWidth = 40;
+    const playerPosition = Math.max(Math.min(maxX, acc.playerPosition + action * trackWidth), minX);
 
     acc.obstacles = acc.obstacles.map((obstacle) => {
         return Object.assign({}, obstacle, {
@@ -13,7 +17,7 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
 
     const carDirection = acc
         .obstacles
-        .filter(obstacle => obstacle.y >= 500 && (obstacle.x >= acc.enemyPosition - 40 || obstacle.x <= acc.enemyPosition + 40))
+        .filter(obstacle => obstacle.y >= 500 && (obstacle.x >= acc.enemyPosition - trackWidth || obstacle.x <= acc.enemyPosition + trackWidth))
         .reduce((pos, x, y, obstacles) => {
             let frontObstacle = obstacles.filter(obstacle => obstacle.y >= 500 && obstacle.x === acc.enemyPosition).pop();
 
@@ -21,19 +25,19 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
                 return 0;
             }
 
-            let newPosition = Math.max(Math.min(504, acc.enemyPosition + 1 * 40), 64);
+            let newPosition = Math.max(Math.min(maxX, acc.enemyPosition + 1 * trackWidth), minX);
             let collisions = acc.obstacles.filter((obstacle) => {
-                return 550 <= obstacle.y && obstacle.x === newPosition;
+                return maxY <= obstacle.y && obstacle.x === newPosition;
             });
 
             return collisions.length ? -1 : 1;
         }, 0)
     ;
 
-    const enemyPosition = Math.max(Math.min(504, acc.enemyPosition + carDirection * 40), 64);
+    const enemyPosition = Math.max(Math.min(maxX, acc.enemyPosition + carDirection * trackWidth), minX);
 
     const collisions = acc.obstacles.filter((obstacle) => {
-        return 550 <= obstacle.y && obstacle.x === enemyPosition;
+        return maxY <= obstacle.y && obstacle.x === enemyPosition;
     });
 
     return {
