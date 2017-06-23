@@ -4,7 +4,7 @@ import debounce from 'xstream/extra/debounce'
 import { draw } from './drawer/dom';
 import { getAction, stickObstacle, resetState } from './player/action';
 import {foldState} from './state'
-import {doppler} from './sound/doppler'
+import {sound} from './sound'
 
 export function App({DOM, Time}) {
     const action$ = getAction(DOM);
@@ -27,6 +27,6 @@ export function App({DOM, Time}) {
 
     return {
         DOM: draw(state$),
-        Sound: doppler(state$),
+        Sound: sound(state$),
     }
 }

@@ -2,7 +2,6 @@
 export function soundDriver(sound$) {
     sound$.addListener({
         next: sounds => {
-            return [];
             sounds.map(sound => {
                 sound.currentTime = 0;
                 sound.play();

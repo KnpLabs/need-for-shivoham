@@ -12,6 +12,7 @@ const initialState = {
     win: false,
     score: 0,
     nextObstacleId: 1,
+    isSoundPlaying: false,
 };
 
 export function foldState(game$) {
@@ -26,6 +27,7 @@ export function foldState(game$) {
                 obstacles: obstacles(moveObstacle, nextObstacleId, stickObstacle, acc.playerPosition, acc.obstacles),
                 win: acc.win || win(acc.enemyPosition, acc.obstacles),
                 score: acc.win ? acc.score : score(acc.score),
+                isSoundPlaying: acc.obstacles.length > 0,
             });
 
             return state;
