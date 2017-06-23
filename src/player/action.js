@@ -1,10 +1,18 @@
 import xs from 'xstream'
 
+export function resetState(DOM) {
+    const keyDown$ = DOM.select('document').events('keydown')
+
+    return keyDown$.filter(ev => ev.keyCode === 82).mapTo(true).startWith(false)
+        .map(direction => xs.fromArray([direction, false]))
+        .flatten();
+}
+
 export function stickObstacle(DOM) {
     const keyDown$ = DOM.select('document').events('keydown')
 
-    return keyDown$.filter(ev => ev.keyCode === 32).mapTo('stick').startWith(0)
-        .map(direction => xs.fromArray([direction, 0]))
+    return keyDown$.filter(ev => ev.keyCode === 32).mapTo(true).startWith(false)
+        .map(direction => xs.fromArray([direction, false]))
         .flatten();
 }
 

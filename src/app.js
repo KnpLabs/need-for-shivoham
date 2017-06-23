@@ -2,13 +2,14 @@ import xs from 'xstream'
 import debounce from 'xstream/extra/debounce'
 
 import { draw } from './drawer/dom';
-import { getAction, stickObstacle } from './player/action';
+import { getAction, stickObstacle, resetState } from './player/action';
 import {foldState} from './state'
 import {doppler} from './sound/doppler'
 
 export function App({DOM, Time}) {
     const action$ = getAction(DOM);
     const stickObstacle$ = stickObstacle(DOM);
+    const resetState$ = resetState(DOM);
     const moveObstacle$ = Time.periodic(100).map(() => xs.fromArray([40, 0])).flatten();
 
     const enemy$ = Time.periodic(1000)
@@ -20,7 +21,7 @@ export function App({DOM, Time}) {
     ;
 
 
-    const state$ = xs.combine(action$, stickObstacle$, moveObstacle$, enemy$)
+    const state$ = xs.combine(action$, stickObstacle$, moveObstacle$, enemy$, resetState$)
         .compose(foldState)
 
     return {

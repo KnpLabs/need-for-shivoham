@@ -1,4 +1,7 @@
-function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
+function callback(acc, [action, stickObstacle, moveObstacle, enemy, resetState]) {
+    if (resetState) {
+        return initialState;
+    }
     const minX = 64;
     const maxX = 504;
     const maxY = 550;
@@ -11,7 +14,7 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
         });
     });
 
-    if (stickObstacle) {
+    if (!acc.win && stickObstacle) {
         acc.obstacles.push({ x: playerPosition, y: 50 })
     }
 
