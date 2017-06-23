@@ -13,8 +13,21 @@ function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
 
     const carDirection = acc
         .obstacles
-        .filter(obstacle => obstacle.y === 500 && obstacle.x === acc.enemyPosition)
-        .reduce(v => Math.floor(Math.random() * 3) - 1, 0)
+        .filter(obstacle => obstacle.y >= 500 && (obstacle.x >= acc.enemyPosition - 50 || obstacle.x <= acc.enemyPosition + 50))
+        .reduce((pos, x, y, obstacles) => {
+            let frontObstacle = obstacles.filter(obstacle => obstacle.y === 500 && obstacle.x === acc.enemyPosition).pop();
+
+            if (!frontObstacle) {
+                    return 0;
+            }
+
+            let newPosition = Math.max(Math.min(550, acc.enemyPosition + 1 * 50), 0);
+            let colisions = acc.obstacles.filter((obstacle) => {
+                return 550 === obstacle.y && obstacle.x === newPosition;
+            });
+
+            return colisions.length ? -1 : 1;
+        }, 0)
     ;
 
     const enemyPosition = Math.max(Math.min(550, acc.enemyPosition + carDirection * 50), 0);
