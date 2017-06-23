@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         <title>runner</title>
         <style>
             html, body, #game {
@@ -16,6 +17,7 @@
                 padding: 0;
                 overflow: hidden;
                 color: white;
+                font-family: 'Press Start 2P', cursive;
             }
             body {
                 background-color: black;
@@ -31,7 +33,7 @@
                 color: blue;
             }
             h1 {
-                font-size: 90px;
+                font-size: 60px;
             }
 
             .obstacle {
@@ -77,12 +79,14 @@
                 overflow: hidden;
                 animation: 10s scroll infinite linear;
                 background: url('background.png');
+                display: flex;
+                text-align: center;
+                justify-content: center;
+
             }
             .win {
-                position: absolute;
-                top: 250px;
-                left: 250px;
-                font-size: 72px;
+                line-height: 600px;
+                font-size: 40px;
                 font-weight: bold;
             }
             .score {
