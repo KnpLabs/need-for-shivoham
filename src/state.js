@@ -12,10 +12,15 @@ function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
         acc.obstacles.push({ x: playerPosition, y: 50 })
     }
 
+    const colisions = acc.obstacles.filter((obstacle) => {
+        return 550 === obstacle.y && obstacle.x === enemyPosition;
+    });
+
     return {
         playerPosition,
         enemyPosition,
         obstacles: acc.obstacles,
+        win: acc.win || colisions.length > 0,
     };
 }
 
@@ -23,6 +28,7 @@ const initialState = {
     playerPosition: 250,
     enemyPosition: 250,
     obstacles: [],
+    win: false,
 };
 
 export function foldState(game$) {

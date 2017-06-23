@@ -9,7 +9,7 @@ export function App({DOM, Time, Canvas}) {
     const frame$ = Time.animationFrames();
     const action$ = getAction(DOM);
     const stickObstacle$ = stickObstacle(DOM);
-    const moveObstacle$ = Time.periodic(16).map(() => xs.fromArray([50, 0])).flatten();
+    const moveObstacle$ = Time.periodic(100).map(() => xs.fromArray([50, 0])).flatten();
 
     const enemy$ = Time.periodic(1000)
         .map(() => {
