@@ -17,7 +17,7 @@ const initialState = {
 
 export function foldState(game$) {
     return game$
-        .fold((acc, [action, stickObstacle, moveObstacle, enemyMovement, resetState, nextObstacleId]) => {
+        .fold((acc, [action, stickObstacle, moveObstacle, resetState, nextObstacleId]) => {
             if (resetState) {
                 return initialState;
             }
