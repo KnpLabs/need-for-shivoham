@@ -11,6 +11,7 @@ const initialState = {
     win: false,
     score: 0,
     nextObstacleId: 1,
+    isSoundPlaying: false,
 };
 
 export function foldState(game$) {
@@ -23,7 +24,8 @@ export function foldState(game$) {
                 playerPosition: playerPosition(action, acc.playerPosition),
                 enemyPosition: enemyPosition(acc.obstacles, acc.enemyPosition),
                 obstacles: obstacles(moveObstacle, nextObstacleId, stickObstacle, acc.playerPosition, acc.obstacles),
-                win: acc.win || win(acc.enemyPosition, acc.obstacles)
+                win: acc.win || win(acc.enemyPosition, acc.obstacles),
+                isSoundPlaying: acc.obstacles.length > 0,
             });
 
             return state;

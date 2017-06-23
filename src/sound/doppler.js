@@ -1,8 +1,22 @@
 
 export function doppler(state$) {
     return state$.map(state => {
-        return state.obstacles.filter(obstacle => obstacle.y < 500).map(obstacle => {
+        if (state.isSoundPlaying['doppler']) {
+            return [];
+        }
+        return state.obstacles.map(obstacle => {
             return new Audio('sound/doppler.wav')
+        })
+    })
+}
+
+export function carLeft(state$) {
+    return state$.map(state => {
+        if (state.isSoundPlaying['carLeft']) {
+            return [];
+        }
+        return state.obstacles.map(obstacle => {
+            return new Audio('sound/carLeft.wav')
         })
     })
 }
