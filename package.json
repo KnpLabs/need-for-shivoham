@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "cycle-scripts": "1.1.0"
+    "browser-sync": "^2.18.12",
+    "concurrently": "^3.5.0",
+    "cycle-scripts": "1.1.0",
+    "nodemon": "^1.11.0",
+    "webpack": "^3.0.0"
   },
   "dependencies": {
     "@cycle/dom": "^17.4.0",
@@ -12,7 +16,10 @@
     "xstream": "^10.8.0"
   },
   "scripts": {
-    "start": "cycle-scripts start",
+    "webpack": "webpack --colors --progress",
+    "webpack:watch": "nodemon -w src --exec 'npm run webpack'",
+    "browser-sync": "browser-sync start -f public/bundle.js -s public",
+    "start": "concurrently 'npm run webpack:watch' 'npm run browser-sync'",
     "test": "cycle-scripts test",
     "build": "cycle-scripts build",
     "eject": "cycle-scripts eject"
