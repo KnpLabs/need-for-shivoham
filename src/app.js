@@ -12,7 +12,7 @@ export function App({DOM, Time}) {
     const resetState$ = resetState(DOM);
     const moveObstacle$ = Time.periodic(100).map(() => xs.fromArray([40, 0])).flatten();
 
-    const enemy$ = Time.periodic(1000)
+    const enemyMovement$ = Time.periodic(1000)
         .map(() => {
             return Math.floor(Math.random() * 3) - 1;
         })
@@ -20,8 +20,9 @@ export function App({DOM, Time}) {
         .flatten()
     ;
 
+    const nextObstacleId$ = stickObstacle$.fold((acc, curr) => acc + (curr ? 1 : 0), 1)
 
-    const state$ = xs.combine(action$, stickObstacle$, moveObstacle$, enemy$, resetState$)
+    const state$ = xs.combine(action$, stickObstacle$, moveObstacle$, enemyMovement$, resetState$, nextObstacleId$)
         .compose(foldState)
 
     return {
