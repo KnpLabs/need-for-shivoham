@@ -16,11 +16,16 @@ const initialState = {
 export function foldState(game$) {
     return game$
         .fold((acc, [action, stickObstacle, moveObstacle, enemyMovement, resetState, nextObstacleId]) => {
-            return Object.assign({}, acc, {
+            if (resetState) {
+                return initialState;
+            }
+            const state = Object.assign({}, acc, {
                 playerPosition: playerPosition(action, acc.playerPosition),
                 enemyPosition: enemyPosition(acc.obstacles, acc.enemyPosition),
                 obstacles: obstacles(moveObstacle, nextObstacleId, stickObstacle, acc.playerPosition, acc.obstacles),
-                win: win(acc.enemyPosition, acc.obstacles)
+                win: acc.win || win(acc.enemyPosition, acc.obstacles)
             });
+
+            return state;
         }, initialState);
 }
