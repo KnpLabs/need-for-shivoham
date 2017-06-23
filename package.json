@@ -16,7 +16,7 @@
     "xstream": "^10.8.0"
   },
   "scripts": {
-    "webpack": "webpack --colors --progress",
+    "webpack": "webpack --colors",
     "webpack:watch": "nodemon -w src --exec 'npm run webpack'",
     "browser-sync": "browser-sync start -f public/bundle.js -s public",
     "start": "concurrently 'npm run webpack:watch' 'npm run browser-sync'",
