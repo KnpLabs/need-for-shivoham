@@ -1,15 +1,15 @@
 
-export function sound() {
-
+export function sound(state$) {
+    return doppler(state$);
 }
 
 function doppler(state$) {
     return state$.map(state => {
-        if (state.isSoundPlaying['doppler']) {
+        if (state.isSoundPlaying) {
             return [];
         }
         return state.obstacles.map(obstacle => {
-            return new Audio('sound/doppler.wav')
+            return new Audio('sound/doppler.mp3')
         })
     })
 }
