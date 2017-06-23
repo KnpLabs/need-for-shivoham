@@ -4,11 +4,10 @@ export function enemyPosition(currentObstacles, currentPosition) {
     const maxX = 504;
     const maxY = 550;
 
-    const carDirection = currentObstacles
+    const visibleObstacles = currentObstacles
         .filter(obstacle => obstacle.y >= 500 && (obstacle.x >= currentPosition - trackWidth || obstacle.x <= currentPosition + trackWidth))
     ;
-
-    carDirection
+    const carDirection = visibleObstacles
         .reduce((pos, x, y, obstacles) => {
             let frontObstacle = obstacles.filter(obstacle => obstacle.y >= 500 && obstacle.x === currentPosition).pop();
 
