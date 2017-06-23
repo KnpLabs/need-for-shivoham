@@ -15,15 +15,15 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
         .obstacles
         .filter(obstacle => obstacle.y >= 500 && (obstacle.x >= acc.enemyPosition - 40 || obstacle.x <= acc.enemyPosition + 40))
         .reduce((pos, x, y, obstacles) => {
-            let frontObstacle = obstacles.filter(obstacle => obstacle.y === 500 && obstacle.x === acc.enemyPosition).pop();
+            let frontObstacle = obstacles.filter(obstacle => obstacle.y >= 500 && obstacle.x === acc.enemyPosition).pop();
 
             if (!frontObstacle) {
-                    return 0;
+                return 0;
             }
 
             let newPosition = Math.max(Math.min(504, acc.enemyPosition + 1 * 40), 64);
             let collisions = acc.obstacles.filter((obstacle) => {
-                return 550 === obstacle.y && obstacle.x === newPosition;
+                return 550 <= obstacle.y && obstacle.x === newPosition;
             });
 
             return collisions.length ? -1 : 1;
@@ -33,7 +33,7 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy]) {
     const enemyPosition = Math.max(Math.min(504, acc.enemyPosition + carDirection * 40), 64);
 
     const collisions = acc.obstacles.filter((obstacle) => {
-        return 550 === obstacle.y && obstacle.x === enemyPosition;
+        return 550 <= obstacle.y && obstacle.x === enemyPosition;
     });
 
     return {
