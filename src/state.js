@@ -1,9 +1,15 @@
-function callback(acc, [_, action, stickObstacle, enemy]) {
+function callback(acc, [_, action, stickObstacle, moveObstacle, enemy]) {
     const playerPosition = Math.max(Math.min(550, acc.playerPosition + action * 50), 0);
     const enemyPosition = Math.max(Math.min(550, acc.enemyPosition + enemy * 50), 0);
 
+    acc.obstacles = acc.obstacles.map((obstacle) => {
+        return Object.assign({}, obstacle, {
+            y: obstacle.y + moveObstacle,
+        });
+    });
+
     if (stickObstacle) {
-        acc.obstacles.push({x: playerPosition})
+        acc.obstacles.push({ x: playerPosition, y: 50 })
     }
 
     return {

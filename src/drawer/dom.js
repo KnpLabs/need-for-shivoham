@@ -9,7 +9,7 @@ export function draw(game$) {
             div('#player', { style: { left: `${state.playerPosition}px` } }),
             div('#enemy', { style: { left: `${state.enemyPosition}px`} }),
             ...state.obstacles.map(obstacle => div('.obstacle', {
-                style: { left: `${obstacle.x}px` }
+                style: { left: `${obstacle.x}px`, top: `${obstacle.y}px` }
             }))
         ]))
 }

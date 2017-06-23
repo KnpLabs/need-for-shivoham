@@ -9,8 +9,9 @@ export function App({DOM, Time, Canvas}) {
     const frame$ = Time.animationFrames();
     const action$ = getAction(DOM);
     const stickObstacle$ = stickObstacle(DOM);
+    const moveObstacle$ = Time.periodic(16).map(() => xs.fromArray([50, 0])).flatten();
 
-    const enemy$ = xs.periodic(1000)
+    const enemy$ = Time.periodic(1000)
         .map(() => {
             return Math.floor(Math.random() * 3) - 1;
         })
@@ -19,6 +20,6 @@ export function App({DOM, Time, Canvas}) {
     ;
 
     return {
-        DOM: drawDom(xs.combine(frame$, action$, stickObstacle$, enemy$)),
+        DOM: drawDom(xs.combine(xs.of(null), action$, stickObstacle$, moveObstacle$, enemy$)),
     }
 }
