@@ -23,6 +23,7 @@
                 position: absolute;
                 top: 50px;
                 transition: 0.1s ease-in-out;
+                animation: 2s spin infinite linear;
             }
             #player {
                 transition: 0.1s;
@@ -76,6 +77,10 @@
                 100%{
                     background-position:0px 3000px;
                 }
+            }
+            @keyframes spin {
+                from {transform:rotate(0deg);}
+                to {transform:rotate(360deg);}
             }
         </style>
     </head>
