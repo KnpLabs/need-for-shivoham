@@ -1,3 +1,13 @@
+
+const initialState = {
+    playerPosition: 264,
+    enemyPosition: 264,
+    obstacles: [],
+    win: false,
+    score: 0,
+    nextObstacleId: 1,
+};
+
 function callback(acc, [action, stickObstacle, moveObstacle, enemy, resetState]) {
     if (resetState) {
         return initialState;
@@ -8,18 +18,15 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy, resetState])
     const trackWidth = 40;
     const playerPosition = Math.max(Math.min(maxX, acc.playerPosition + action * trackWidth), minX);
 
-    acc.obstacles = acc.obstacles.map((obstacle) => {
-        return Object.assign({}, obstacle, {
-            y: obstacle.y + moveObstacle,
-        });
-    });
+    const obstacles = acc.obstacles.map((obstacle) => Object.assign({}, obstacle, {
+        y: obstacle.y + moveObstacle,
+    }))
 
     if (!acc.win && stickObstacle) {
-        acc.obstacles.push({ x: playerPosition, y: 50 })
+        obstacles.push({ x: playerPosition, y: 50, id: acc.nextObstacleId })
     }
 
-    const carDirection = acc
-        .obstacles
+    const carDirection = obstacles
         .filter(obstacle => obstacle.y >= 500 && (obstacle.x >= acc.enemyPosition - trackWidth || obstacle.x <= acc.enemyPosition + trackWidth))
         .reduce((pos, x, y, obstacles) => {
             let frontObstacle = obstacles.filter(obstacle => obstacle.y >= 500 && obstacle.x === acc.enemyPosition).pop();
@@ -29,7 +36,7 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy, resetState])
             }
 
             let newPosition = Math.max(Math.min(maxX, acc.enemyPosition + 1 * trackWidth), minX);
-            let collisions = acc.obstacles.filter((obstacle) => {
+            let collisions = obstacles.filter((obstacle) => {
                 return maxY <= obstacle.y && obstacle.x === newPosition;
             });
 
@@ -39,26 +46,19 @@ function callback(acc, [action, stickObstacle, moveObstacle, enemy, resetState])
 
     const enemyPosition = Math.max(Math.min(maxX, acc.enemyPosition + carDirection * trackWidth), minX);
 
-    const collisions = acc.obstacles.filter((obstacle) => {
+    const collisions = obstacles.filter((obstacle) => {
         return maxY <= obstacle.y && obstacle.x === enemyPosition;
     });
 
     return {
         playerPosition,
         enemyPosition,
-        obstacles: acc.obstacles,
+        obstacles: obstacles.filter(o => o.y <= 600),
         win: acc.win || collisions.length > 0,
         score: acc.win ? acc.score : acc.score + moveObstacle,
+        nextObstacleId: acc.nextObstacleId + 1,
     };
 }
-
-const initialState = {
-    playerPosition: 264,
-    enemyPosition: 264,
-    obstacles: [],
-    win: false,
-    score: 0,
-};
 
 export function foldState(game$) {
     return game$.fold(callback, initialState);
