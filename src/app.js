@@ -1,24 +1,24 @@
 import xs from 'xstream'
-import debounce from 'xstream/extra/debounce'
+import isolate from '@cycle/isolate'
+import {div} from '@cycle/dom'
+import { Shivoham } from './component/shivoham';
+import { Obstacles } from './component/obstacles';
 
 import { draw } from './drawer/dom';
 import { getAction, stickObstacle, resetState } from './player/action';
 import {foldState} from './state'
 import {sound} from './sound'
 
-export function App({DOM, Time}) {
-    const action$ = getAction(DOM);
-    const stickObstacle$ = stickObstacle(DOM);
-    const resetState$ = resetState(DOM);
-    const moveObstacle$ = Time.periodic(100).map(() => xs.fromArray([40, 0])).flatten();
-
-    const nextObstacleId$ = stickObstacle(DOM).fold((acc, curr) => acc + (curr ? 1 : 0), 1)
-
-    const state$ = xs.combine(action$, stickObstacle$, moveObstacle$, resetState$, nextObstacleId$)
-        .compose(foldState)
+export function App(sources) {
+    const shivoham = isolate(Shivoham)(sources);
+    const obstacles = isolate(Obstacles)(sources);
 
     return {
-        DOM: draw(state$),
-        Sound: sound(state$),
-    }
+        DOM: obstacles.DOM
+    };
+
+
+    return {
+        DOM: vdom$
+    };
 }
